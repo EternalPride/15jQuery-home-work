@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+ <style>
+        body, div, ul, li, a 
+        {
+            margin: 0px;
+            padding: 0px;
+            font-size: 20px;
+            color: #FFF;
+            border: 0;
+        }
+        .div-nav-container
+        {
+            margin-top: 50px;
+            width: 100%;
+            background-color: #01204F;
+        }
+        .div-nav
+        {
+            position: relative;
+            width: 870px;
+            margin: 0px auto;
+        }
+        .div-hover
+        {
+            background-color: Red;
+            /*以父元素绝对定位*/
+            position: absolute;
+            height: 50px;
+            left: 0px;
+            top: 0px;
+            width: 0px;
+        }
+        ul
+        {
+            list-style: outside none none;
+            width: 100%;
+            height: 50px;
+        }
+        ul li
+        {
+            float: left;
+            position: relative;
+            z-index: 4;
+            
+        }
+        ul li a
+        {
+            line-height: 50px;
+            display: block;
+            padding: 0px 15px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .active
+        {
+            background-color: Red;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+    <script type="text/javascript">
+
+        var divHoverLeft = 0;
+        var aWidth = 0;
+
+        $(document).ready(function () {
+            $("a").on({
+                'mouseenter': function () {
+                    SetDivHoverWidthAndLeft(this);
+                     $(".div-hover").stop().animate({ width: aWidth, left: divHoverLeft }, 150);
+                },
+                'click': function () {
+                    SetDivHoverWidthAndLeft(this);
+                    $('a').removeClass();
+                    $(this).addClass('active');
+
+                    $(".h-width").val(aWidth);
+                    $(".h-left").val(divHoverLeft);
+                }
+            });
+
+            $("ul").on({
+                'mouseleave': function (event) {
+                    $(".div-hover").stop().animate({ width: $(".h-width").val(), left: $(".h-left").val() }, 150);
+                }
+            });
+        });
+
+        function SetDivHoverWidthAndLeft(element) {
+            divHoverLeft = GetLeft(element);
+            aWidth = GetWidth(element);
+        }
+        function GetWidth(ele) {
+            return $(ele).parent().width();
+        }
+
+        function GetLeft(element) {
+            var menuList = $(element).parent().prevAll();
+            var left = 0;
+            $.each(menuList, function (index, ele) {
+                left += $(ele).width();
+          });
+          return left;
+        }
+    </script>
+</head>
+<body>
+    <div class="div-nav-container">
+        <div class="div-nav">
+            <div class="div-hover">
+            </div>
+            <ul>
+                <li><a class="active" href="javascript:void(0)">网站首页</a><>
+                <li><a href="javascript:void(0)">热点</a> <>
+                <li><a href="javascript:void(0)">国际新闻</a> <>
+                <li><a href="javascript:void(0)">国内新闻</a> <>
+                <li><a href="javascript:void(0)">国家政策</a> <>
+                <li><a href="javascript:void(0)">体育新闻</a> <>
+                <li><a href="javascript:void(0)">娱乐新闻</a> <>
+                <li><a href="javascript:void(0)">名人</a> <>
+                <li><a href="javascript:void(0)">古迹</a> <>
+            </ul>
+        </div>
+    </div>
+    <input type="hidden" class="h-width" value="110" />
+    <input type="hidden" class="h-left" value="0" />
+</body>
+<ml>

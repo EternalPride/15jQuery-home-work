@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;padding: 0;
+			}
+			ul{list-style: none;}
+			#div1
+			{
+				width: 1500px;
+				height:400px;
+			
+				margin: 20px auto;
+			}
+			#div ul{
+				width: 1500px;
+				height:400px;
+			}
+			#div1 li{width: 250px;
+			height: 400px;
+			float: left;
+			}
+			#div1 .act{
+			background-size: 100%  100%;}
+		</style>
+		<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="div1">
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			var $li=$('#div1 li');
+			$li.each(function(i){
+				$(this).css('background-image','url(img/'+(i+1)+'.jpg)')
+			})
+			$li.mouseenter(function(){
+				$(this).stop(true,true).animate({width:1200},800).siblings().stop(true,true).animate({width:50},600)
+			      $(this).addClass('act').siblings().removeClass('act')
+			})
+			.mouseleave(function(){
+				$li.stop(true,true).animate({width:250},600)
+				$li.removeClass('act')
+			})
+		})
+	</script>
+</html>
